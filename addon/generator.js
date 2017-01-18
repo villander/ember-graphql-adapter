@@ -18,7 +18,7 @@ export default {
   argumentStringWrapperToken: '"',
 
   generate(parseTree) {
-    return parseTree.type + this.generateField(parseTree);
+    return parseTree.type + `${this.openingToken}${this.generateField(parseTree)}${this.closingToken}`;
   },
 
   generateField(field) {
@@ -35,7 +35,11 @@ export default {
     }
 
     if (field.selectionSet.length > 0) {
-      acc = acc + `${this.openingToken}${this.generateSelectionSet(field.selectionSet)}${this.closingToken}`;
+      if (field.selectionSet.length > 1) {
+        acc = acc + `${this.openingToken}${this.generateSelectionSet(field.selectionSet)}${this.closingToken}`;
+      } else {
+         acc = acc + `${this.generateSelectionSet(field.selectionSet)}`;
+      }
     }
 
     return acc;

@@ -148,11 +148,11 @@ export default DS.Adapter.extend({
     });
   },
 
-  saveRecord: function(store, type, snapshot, options) {
+  saveRecord: function (store, type, snapshot, options) {
     let data = {};
     let serializer = store.serializerFor(type.modelName);
     let modelName = this.normalizeCase(type.modelName);
-    let operationName = this.normalizeCase(modelName + options.action);
+    let operationName = this.normalizeCase(`${options.action} ${modelName}`);
 
     serializer.serializeIntoHash(data, type, snapshot);
 
@@ -171,8 +171,6 @@ export default DS.Adapter.extend({
       'operationName': operationName,
       'operationType': 'mutation',
       'parseSelectionSet': true,
-      'rootFieldAlias': modelName,
-      'rootFieldName': operationName,
       'rootFieldQuery': payload
     });
   },
@@ -188,7 +186,7 @@ export default DS.Adapter.extend({
     @return {Promise} promise
   */
   createRecord: function(store, type, snapshot) {
-    return this.saveRecord(store, type, snapshot, { action: 'Create' });
+    return this.saveRecord(store, type, snapshot, { action: 'create' });
   },
 
   /**
@@ -204,7 +202,7 @@ export default DS.Adapter.extend({
     @return {Promise} promise
   */
   updateRecord: function(store, type, snapshot) {
-    return this.saveRecord(store, type, snapshot, { action: 'Update' });
+    return this.saveRecord(store, type, snapshot, { action: 'update' });
   },
 
   /**

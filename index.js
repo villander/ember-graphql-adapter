@@ -2,5 +2,7 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-graphql-adapter'
+  name: 'ember-graphql-adapter',
+  isDevelopingAddon: () => true
 };
+

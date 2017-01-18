@@ -14,7 +14,7 @@ export default {
     let rootFieldQuery = options['rootFieldQuery'] || {};
     let rootFieldName = options['rootFieldName'] || model.modelName;
     let rootFieldAlias = options['rootFieldAlias'];
-    let rootField = new Field(rootFieldName, rootFieldAlias, ArgumentSet.fromQuery(rootFieldQuery));
+    let rootField = new Field("", rootFieldAlias, ArgumentSet.fromQuery(rootFieldQuery));
 
     Parser.parse(model, store, operation, rootField, options);
 
